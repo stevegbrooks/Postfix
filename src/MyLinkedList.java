@@ -40,22 +40,18 @@ public class MyLinkedList<E> {
 	}
 	
 	public boolean add(E e) {
+		if (e == null) {
+			throw new NullPointerException("This add operation does not support adding nulls");
+		}
 		Node newNode = new Node(e);
 		if (isEmpty()) {
 			newNode.next = newNode;
 			newNode.previous = newNode;
 			head = newNode;
 		} else {
-			//make the newNodes previous pointer 
-			//equal to the current head's previous pointer
-			//now the head.previous node has two nodes pointing back to it
 			newNode.previous = head.previous;
-			//then make the head.previous node point 
-			//forward to the newNode
 			head.previous.next = newNode;
-			//now make head.previous point to the newNode
 			head.previous = newNode;
-			//then make newNode.next point to the head
 			newNode.next = head;
 		}
 		size++;
@@ -63,11 +59,28 @@ public class MyLinkedList<E> {
 	}
 	
 	public void add(int index, E element) {
-		
+		if (element == null) {
+			throw new NullPointerException("This add operation does not support adding nulls");
+		}
+		if (index >= size) {
+			throw new IndexOutOfBoundsException("The index, " + index + " is out of bounds. "
+					+ "It must be less than the list size: " + size);
+		}
+		Node newNode = new Node(element);
+		Node traveler = head;
+		for (int i = 0; i < index; i++) {
+			traveler = traveler.next;
+		}
+		newNode.previous = traveler.previous;
+		traveler.previous.next = newNode;
+		traveler.previous = newNode;
+		newNode.next = traveler;
+		size++;
 	}
 	
 	public void clear() {
-		
+		head = null;
+		size = 0;
 	}
 	
 	public boolean isEmpty() {
@@ -75,10 +88,35 @@ public class MyLinkedList<E> {
 	}
 	
 	public E remove(int index) {
-		return null;
+		if (index >= size) {
+			throw new IndexOutOfBoundsException("The index, " + index + " is out of bounds. "
+					+ "It must be less than the list size: " + size);
+		}
+		Node traveler = head;
+		for (int i = 0; i < index; i++) {
+			traveler = traveler.next;
+		}
+		traveler.next.previous = traveler.previous;
+		traveler.previous.next = traveler.next;
+		size--;
+		return traveler.value;
 	}
 	
 	public boolean remove(Object o) {
+		if (o == null) {
+			throw new NullPointerException("This add operation does not support adding/removing nulls");
+		}
+		int counter = 0;
+		for (Node traveler = head; traveler != null; traveler = traveler.next) {
+			if (traveler.value == o) {
+				traveler.next.previous = traveler.previous;
+				traveler.previous.next = traveler.next;
+				size--;
+				return true;
+			}
+			counter++;
+			if (counter >= size) break;
+		}
 		return false;
 	}
 	
@@ -87,17 +125,29 @@ public class MyLinkedList<E> {
 	}
 	
 	public boolean contains(Object o) {
+		int counter = 0;
+		for (Node traveler = head; traveler != null; traveler = traveler.next) {
+			if (traveler.value == o) {
+				return true;
+			}
+			counter++;
+			if (counter >= size) break;
+		}
 		return false;
 	}
 	
     public String toString() {
-        String out = "";
+        if (isEmpty()) {
+        		return "No elements to print - empty";
+        }
+    		StringBuilder sb = new StringBuilder();
         int counter = 0;
         for (Node traveler = head; traveler != null; traveler = traveler.next) {
-            out += traveler.value + ", ";
+            sb.append(traveler.value + ", ");
             counter++;
             if (counter >= size) break;
         }
+        String out = sb.toString();
         return out;
     }
 	
