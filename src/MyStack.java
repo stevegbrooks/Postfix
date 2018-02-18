@@ -27,7 +27,7 @@ public class MyStack<E> {
 	 * Looks at the object at the top of this stack without removing it from the stack.
 	 * @return value
 	 */
-	public Object peek() {
+	public E peek() {
 		if (empty()) {
 			throw new EmptyStackException();
 		}
@@ -40,11 +40,11 @@ public class MyStack<E> {
 	 * Removes the value at the top of this stack and returns it.
 	 * @return value
 	 */
-	public Object pop() {
+	public E pop() {
 		if (empty()) {
 			throw new EmptyStackException();
 		}
-		Object output = list.remove(list.size() - 1);
+		E output = list.remove(list.size() - 1);
 		return output;
 	}
 
