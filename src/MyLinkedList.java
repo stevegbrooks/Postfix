@@ -147,6 +147,7 @@ public class MyLinkedList<E> {
             counter++;
             if (counter >= size) break;
         }
+        sb.setLength(sb.length()-2);
         String out = sb.toString();
         return out;
     }
