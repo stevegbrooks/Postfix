@@ -38,7 +38,13 @@ public class MyLinkedList<E> {
 		head = null;
 		size = 0;
 	}
-	
+	/**
+	 * Adds an element to the end of the circular linked-list. It places
+	 * the new element right behind the head.
+	 * Throws an exception if the element to be added is null.
+	 * @param e
+	 * @return true if the addition was successful, false otherwise
+	 */
 	public boolean add(E e) {
 		if (e == null) {
 			throw new NullPointerException("This add operation does not support adding nulls");
@@ -57,12 +63,20 @@ public class MyLinkedList<E> {
 		size++;
 		return true;
 	}
-	
+	/**
+	 * Adds an element to the linked-list at the index of the users choice.
+	 * Pushes all elements after it one index over.
+	 * 
+	 * Throws an exception if the element to be added is null, or if the index
+	 * is greater or equal to the size.
+	 * @param index
+	 * @param element
+	 */
 	public void add(int index, E element) {
 		if (element == null) {
 			throw new NullPointerException("This add operation does not support adding nulls");
 		}
-		if (index >= size) {
+		if (index >= size || index < 0) {
 			throw new IndexOutOfBoundsException("The index, " + index + " is out of bounds. "
 					+ "It must be less than the list size: " + size);
 		}
@@ -77,7 +91,7 @@ public class MyLinkedList<E> {
 		newNode.next = traveler;
 		size++;
 	}
-	
+
 	public void clear() {
 		head = null;
 		size = 0;
@@ -86,9 +100,18 @@ public class MyLinkedList<E> {
 	public boolean isEmpty() {
 		return size == 0;
 	}
-	
+	/**
+	 * Removes the element at the index provided and returns it. 
+	 * 
+	 * The index for all elements after the one removed is decreased by one.
+	 * 
+	 * Throws an exception if the index passed to it is greater or equal to the size.
+	 * 
+	 * @param index
+	 * @return the element removed
+	 */
 	public E remove(int index) {
-		if (index >= size) {
+		if (index >= size || index < 0) {
 			throw new IndexOutOfBoundsException("The index, " + index + " is out of bounds. "
 					+ "It must be less than the list size: " + size);
 		}
@@ -101,7 +124,13 @@ public class MyLinkedList<E> {
 		size--;
 		return traveler.value;
 	}
-	
+	/**
+	 * Removes the first object in the list that matches the object passed to it.
+	 * Throws an exception if the object is null.
+	 * @param o 
+	 * @return true if there is an object in the list that matches the object passed to it and
+	 * it was removed successfully, false otherwise.
+	 */
 	public boolean remove(Object o) {
 		if (o == null) {
 			throw new NullPointerException("This add operation does not support adding/removing nulls");
@@ -123,7 +152,16 @@ public class MyLinkedList<E> {
 	public int size() {
 		return size;
 	}
-	
+	/**
+	 * Searches for a match with the object passed to it, and 
+	 * returns a boolean based on whether or not the list contains at least
+	 * one instance of the object.
+	 * 
+	 * If a null object is passed to this method it will simply return false, because
+	 * the list does not support adding nulls.
+	 * @param o
+	 * @return true if the object is found in the list, false otherwise.
+	 */
 	public boolean contains(Object o) {
 		int counter = 0;
 		for (Node traveler = head; traveler != null; traveler = traveler.next) {
@@ -135,7 +173,9 @@ public class MyLinkedList<E> {
 		}
 		return false;
 	}
-	
+	/**
+	 * Returns a comma-delimited string representation of the list.
+	 */
     public String toString() {
         if (isEmpty()) {
         		return "No elements to print - empty";

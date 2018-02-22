@@ -1,0 +1,24 @@
+Black Box Testing of MyStack Using the Principles of Equivalence Partitioning and Boundary Analysis.
+
+1). boolean empty()
+		a). stack is empty - call empty() on a freshly initialized stack without contents.
+		b). stack has contents - call empty() on a stack after pushing an element.
+
+2). int size()
+		a). stack is empty - test size() after pushing and then popping an element, to make sure its zero.
+		b). stack has contents - test size() after pushing an element: should result in size of 1.
+
+3). E peek()
+		a). stack is empty - test peek() before pushing any elements: should result in some exception.
+		b). stack has contents - test peek() after pushing an element and see if peek() successfully returns it.
+		c). stack has contents - test size after calling peek() to make sure that it doesn't reduce the size of the stack.
+		
+4). E pop()
+		a). stack is empty - test pop() before pushing any elements: should result in some exception.
+		b). stack has contents - test pop() after pushing an element and see if pop() successfully returns it.
+
+3). void push(E item)
+		a). stack is empty - tests whether after a push() call, the stack is null or not.
+		b). stack has contents - tests whether after a push() call, the stacks size has increased by 1.
+		c). Object in argument is null - test push(null) to make sure it throws an exception.
+

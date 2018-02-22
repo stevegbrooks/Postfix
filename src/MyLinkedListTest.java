@@ -203,7 +203,7 @@ public class MyLinkedListTest {
 		list.add(1);
 		list.add(2);
 		list.add(3);
-		String expected = "1, 2, 3, ";
+		String expected = "1, 2, 3";
 		assertTrue("Error: Expected string is " + expected + " but the toString() method returned " 
 				+ list.toString(), list.toString().equals(expected));
 	}
