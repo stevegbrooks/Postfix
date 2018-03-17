@@ -42,10 +42,15 @@ public class PostFixSolver {
 		
 		//Exception Handling:
 		
+		//Throw an exception if the only thing in the expression is an operator.
 		//Throw an exception if there's a non-operator or non-number element in the expression.
 		//Throw an exception if this method's for loop exits and the stack has more than one 
 		//number in it.
 		String errorMessage = "Not a valid Postfix expression, please try again";
+		
+		if (stringArray.length == 1 && stringArray[0].matches("\\+|\\-|\\*|\\/")) {
+			throw new IllegalArgumentException(errorMessage);
+		}
 		
 		for (int i = 0; i < stringArray.length; i++) {
 			if (stringArray[i].matches("\\+|\\-|\\*|\\/")) {
